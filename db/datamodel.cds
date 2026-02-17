@@ -85,7 +85,7 @@ context transaction {
         LIFECYCLE_STATUS: String(1);
         OVERALL_STATUS : String(100);
         NOTE: String(100);
-        Items: Association to many poitems on Items.PARENT_KEY = $self;
+        Items: Composition of many poitems on Items.PARENT_KEY = $self;
 
     }
 

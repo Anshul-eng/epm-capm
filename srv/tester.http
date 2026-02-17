@@ -39,13 +39,13 @@ http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$orderby=salaryAmount 
 http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet
 
 ###GEt Single Po data
-http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC28052
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC46052
 
 ### GEt item data for this purchase order
 http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC28052/Items
 
 ###Load order header of a single order + its all item Together - $expand
-http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC28052?$expand=Items
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC46052?$expand=Items
 
 ###Using Cds view we do lazy loading
 http://localhost:4004/odata/v4/CDSService/ProductSet/74867AD200E41EDBA5D8B06B26EBE052?$expand=To_Items
@@ -86,3 +86,40 @@ Content-Type: application/json
 
 ### Delete the data from db
 DELETE http://localhost:4004/odata/v4/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C197C7FB
+
+### Testing deepinsert together = passing batch of data together hearder + item
+POST http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet
+Content-Type: application/json
+
+{
+  "CURRENCY_code": "EUR",
+  "GROSS_AMOUNT": 3913.91,
+  "NET_AMOUNT": 3289,
+  "TAX_AMOUNT": 624.91,
+  "NODE_KEY": "74867AD200E41EDBA5D8B0C98DC30666",
+  "PO_ID": "300000000",
+  "PARTNER_GUID_NODE_KEY": "74867AD200E41EDBA5D8B06885B04052",
+  "LIFECYCLE_STATUS": "N",
+  "OVERALL_STATUS": "P",
+  "NOTE": null,
+  "Items": [
+    {
+      "CURRENCY_code": "ARS",
+      "GROSS_AMOUNT": 464.1,
+      "NET_AMOUNT": 390,
+      "TAX_AMOUNT": 74.1,
+      "NODE_KEY": "74867AD200E41EDBA5D8B0CBD35B6061",
+      "PO_ITEM_POS": 90,
+      "PRODUCT_GUID_NODE_KEY": "74867AD200E41EDBA5D8B06B26F60052"
+    },
+    {
+      "CURRENCY_code": "ARS",
+      "GROSS_AMOUNT": 603.33,
+      "NET_AMOUNT": 507,
+      "TAX_AMOUNT": 96.33,
+      "NODE_KEY": "74867AD200E41EDBA5D8B0CBD35B6062",
+      "PO_ITEM_POS": 100,
+      "PRODUCT_GUID_NODE_KEY": "74867AD200E41EDBA5D8B06B26F06052"
+    }
+  ]
+}
