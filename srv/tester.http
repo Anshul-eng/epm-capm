@@ -70,7 +70,7 @@ Content-Type: application/json
   "email": "chrisian678@sap.com",
   "loginName": "CRFC",
   "Currency_code": "USD",
-  "salaryAmount": 1000000,
+  "salaryAmount": 1000008,
   "accountNumber": "4125772788",
   "bankId": "12100",
   "bankName": "City Bank"
@@ -123,3 +123,9 @@ Content-Type: application/json
     }
   ]
 }
+
+### Test the function to load top 3 POs
+http://localhost:4004/odata/v4/CatalogService/getLargestOrder() 
+
+### Read my order data
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC30052
