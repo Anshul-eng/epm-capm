@@ -22,7 +22,10 @@ module.exports = class CatalogService extends cds.ApplicationService { init() {
     console.log('Before CREATE/UPDATE ProductSet', req.data)
   })
   this.after ('READ', ProductSet, async (productSet, req) => {
+    console.log("AFTER READ TRIGGERED");
     console.log('After READ ProductSet', productSet)
+
+   
   })
   this.before (['CREATE', 'UPDATE'], BusinessPartnerSet, async (req) => {
     console.log('Before CREATE/UPDATE BusinessPartnerSet', req.data)
