@@ -29,6 +29,10 @@ http://localhost:4004/odata/v4/CatalogService/EmployeeSet(ID='02BD2137-0890-1EEA
 ###eq nq, ge ,le, lt, gt
 http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=bankName eq 'My Bank of San Francisco'&$top=2
 
+
+###Example for v2
+http://localhost:4004/odata/v2/CatalogService/EmployeeSet?$filter=bankName eq 'My Bank of San Francisco'
+
 ### Can we filter data based on Pattern match
 http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=contains(nameFirst,'S')
 
