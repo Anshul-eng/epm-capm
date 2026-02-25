@@ -20,10 +20,10 @@ type AmountT : Decimal(10,2) @(
 
 // Custom structure (Aspect)
 aspect Amount {
-    CURRENCY     : Currency;
-    GROSS_AMOUNT : AmountT; // Points to the type defined above
-    NET_AMOUNT: AmountT;
-    TAX_AMOUNT: AmountT;
+    CURRENCY     : Currency @(title: '{i18n>CURRENCY}');
+    GROSS_AMOUNT : AmountT @(title: '{i18n>GROSS_AMOUNT}'); // Points to the type defined above
+    NET_AMOUNT: AmountT @(title: '{i18n>NET_AMOUNT}');
+    TAX_AMOUNT: AmountT @(title: '{i8n>TAX_AMOUNT}');
 }
 
 type PhoneNumber : String(30) @assert.format : '^[6-9]\d{9}$';

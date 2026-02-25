@@ -5,14 +5,14 @@ using { cuid, Currency } from '@sap/cds/common';
 context master {
     //foreign key - ADDRESS_GUID
     entity businesspartner {
-        key NODE_KEY: common.Guid;
+        key NODE_KEY: common.Guid @(title: '{i18n>PARTNER_KEY}');
         BP_ROLE: String(2);
         EMAIL_ADDRESS: String(125);
         PHONE_NUMBER: String(32);
         FAX_NUMBER: String(32);
         WEB_ADDRESS: String(44);
-        COMPANY_NAME: String(252);
-        BP_ID: String(32);
+        COMPANY_NAME: String(252) @(title: '{i18n>COMPANY_NAME}');
+        BP_ID: String(32) @(title: '{i18n>PARTNER_ID}');
         //COLUMN NAME - ADDRESS_GUID_NODE_KEY
         ADDRESS_GUID: Association to one address;
     };
@@ -24,7 +24,7 @@ context master {
         POSTAL_CODE: String(8);
         STREET: String(44);
         BUILDING: String(128);
-        COUNTRY: String(44);
+        COUNTRY: String(44) @(title: '{i18n>COUNTRY}');
         ADDRESS_TYPE: String(44);
         VAL_START_DATE: Date;
         VAL_END_DATE: Date;
@@ -56,8 +56,8 @@ context master {
 
     //master data products
     entity product {
-        key NODE_KEY: common.Guid;
-        PRODUCT_ID: String(28);
+        key NODE_KEY: common.Guid @(title: '{i18n>PRODUCT_KEY}');
+        PRODUCT_ID: String(28) @(title:'{i18n>PRODUCT_ID}');
         TYPE_CODE: String(2);
         CATEGORY: String(32);
         SUPPLIER_GUID: Association to one master.businesspartner;
@@ -71,7 +71,7 @@ context master {
         DEPTH: Decimal(5,2);
         HEIGHT: Decimal(2);
         DIM_UNIT: String(2);
-        DESCRIPTION: String(32);
+        DESCRIPTION: String(32) @(title: '{i18n>DESCRIPTION}');
     } 
 
 }; // Added semicolon after context closing brace
@@ -80,20 +80,20 @@ context transaction {
 
     entity purchaseorder: common.Amount{
         key NODE_KEY: common.Guid;
-        PO_ID: String(32);
-        PARTNER_GUID : Association to master.businesspartner;
-        LIFECYCLE_STATUS: String(1);
-        OVERALL_STATUS : String(100);
-        NOTE: String(100);
-        Items: Composition of many poitems on Items.PARENT_KEY = $self;
+        PO_ID: String(32) @(title: '{i18n>PO_ID}');
+        PARTNER_GUID : Association to master.businesspartner @(title: '{i18n>PARTNER_KEY}');
+        LIFECYCLE_STATUS: String(1) @(title: '{i18n>OVERALL_STATUS}');
+        OVERALL_STATUS: String(1) @(title: '{i18n>OVERALL_STATUS}');
+        NOTE: String(100) @(title: '{i18n>NOTE}');
+        Items: Composition of  many poitems on Items.PARENT_KEY = $self @(title: '{i18n>PO_ITEM_KEY}');
 
     }
 
     entity poitems: common.Amount{
-        key NODE_KEY: common.Guid;
-        PARENT_KEY : Association to purchaseorder;
-        PO_ITEM_POS: Integer;
-        PRODUCT_GUID: Association to master.product;
+        key NODE_KEY: common.Guid @(title: '{i18n>PO_ITEM_KEY}');
+        PARENT_KEY : Association to purchaseorder @(title: '{i18n>PO_KEY}');
+        PO_ITEM_POS: Integer @(title: '{i18n>PO_ITEM_POS}');
+        PRODUCT_GUID: Association to master.product @(title: '{i18n>PRODUCT_KEY}');
     }
     
 }
