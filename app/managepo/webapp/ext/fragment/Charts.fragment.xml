@@ -1,5 +1,62 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:macros="sap.fe.macros">
+<!-- <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:macros="sap.fe.macros">
 	<VBox core:require="{ handler: 'anubhav/ui/managepo/ext/fragment/Charts'}">
 		<Button text="Charts" press="handler.onPress" />
 	</VBox>
+</core:FragmentDefinition> -->
+
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:micro="sap.suite.ui.microchart">
+
+    <VBox
+        core:require="{ handler: 'anubhav/ui/managepo/ext/fragment/Charts'}"
+        class="sapUiSmallMargin">
+
+        <Title text="MicroCharts inside Object Page" level="H3"/>
+
+        <!-- Radial Chart -->
+        <HBox class="sapUiSmallMarginTop" alignItems="Center" justifyContent="SpaceBetween">
+            <Text text="Radial MicroChart (45%)"/>
+            <micro:RadialMicroChart
+                size="M"
+                percentage="45"/>
+        </HBox>
+
+        <!-- Bullet Chart -->
+        <HBox class="sapUiSmallMarginTop" alignItems="Center" justifyContent="SpaceBetween">
+            <Text text="Bullet MicroChart"/>
+            <micro:BulletMicroChart
+                size="M"
+                actual="60"
+                targetValue="80"
+                minValue="0"
+                maxValue="100"/>
+        </HBox>
+
+        <!-- Harvey Ball -->
+        <HBox class="sapUiSmallMarginTop" alignItems="Center" justifyContent="SpaceBetween">
+            <Text text="Harvey Ball MicroChart"/>
+            <micro:HarveyBallMicroChart total="100">
+                <micro:items>
+                    <micro:HarveyBallMicroChartItem fraction="70"/>
+                </micro:items>
+            </micro:HarveyBallMicroChart>
+        </HBox>
+
+        <!-- Column Chart -->
+        <HBox class="sapUiSmallMarginTop" alignItems="Center" justifyContent="SpaceBetween">
+            <Text text="Column MicroChart"/>
+            <micro:ColumnMicroChart>
+                <micro:columns>
+                    <micro:ColumnMicroChartData value="10"/>
+                    <micro:ColumnMicroChartData value="30"/>
+                    <micro:ColumnMicroChartData value="20"/>
+                    <micro:ColumnMicroChartData value="40"/>
+                </micro:columns>
+            </micro:ColumnMicroChart>
+        </HBox>
+
+    </VBox>
+
 </core:FragmentDefinition>
