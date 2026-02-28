@@ -3,7 +3,7 @@ const req = require('express/lib/request')
 
 module.exports = class CatalogService extends cds.ApplicationService { init() {
 
-  const { EmployeeSet, ProductSet, BusinessPartnerSet, AddressSet, PurchaseOrderSet, PurchaseOrderItemsSet } = cds.entities('CatalogService')
+  const { EmployeeSet, ProductSet, BusinessPartnerSet, AddressSet, PurchaseOrderSet, PurchaseItemsSet } = cds.entities('CatalogService')
 
   this.before (['CREATE', 'UPDATE'], EmployeeSet, async (req) => {
     console.log('Before CREATE/UPDATE EmployeeSet', req.data)
@@ -44,12 +44,18 @@ module.exports = class CatalogService extends cds.ApplicationService { init() {
   })
   this.after ('READ', PurchaseOrderSet, async (purchaseOrderSet, req) => {
     console.log('After READ PurchaseOrderSet', purchaseOrderSet)
+    for (let index = 0; index < purchaseOrderSet.length; index++) {
+      const element = purchaseOrderSet[index];
+      if(!element.NOTE){
+        element.NOTE = 'Not Found'
+      }      
+    }
   })
-  this.before (['CREATE', 'UPDATE'], PurchaseOrderItemsSet, async (req) => {
-    console.log('Before CREATE/UPDATE PurchaseOrderItemsSet', req.data)
+  this.before (['CREATE', 'UPDATE'], PurchaseItemsSet, async (req) => {
+    console.log('Before CREATE/UPDATE PurchaseItemsSet', req.data)
   })
-  this.after ('READ', PurchaseOrderItemsSet, async (purchaseOrderItemsSet, req) => {
-    console.log('After READ PurchaseOrderItemsSet', purchaseOrderItemsSet)
+  this.after ('READ', PurchaseItemsSet, async (PurchaseItemsSet, req) => {
+    console.log('After READ PurchaseItemsSet', PurchaseItemsSet)
   })
 
   ///Implementation for order defaults
