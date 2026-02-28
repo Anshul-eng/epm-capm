@@ -49,7 +49,8 @@
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.fe.templates": {}
+        "sap.fe.templates": {},
+        "sap.suite.ui.microchart": {}
       }
     },
     "contentDensities": {
@@ -118,10 +119,13 @@
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
-                    "type": "ResponsiveTable"
+                    "type": "ResponsiveTable",
+                    "condensedTableLayout": true,
+                    "enableExport": false
                   }
                 }
-              }
+              },
+              "initialLoad": "Enabled"
             }
           }
         },
@@ -137,6 +141,20 @@
                 "Items": {
                   "detail": {
                     "route": "PurchaseOrderItemsSetObjectPage"
+                  }
+                }
+              },
+              "content": {
+                "body": {
+                  "sections": {
+                    "Charts": {
+                      "template": "anubhav.ui.managepo.ext.fragment.Charts",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "Items::LineItem"
+                      },
+                      "title": "Charts"
+                    }
                   }
                 }
               }
