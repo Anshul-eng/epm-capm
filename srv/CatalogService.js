@@ -85,6 +85,31 @@ module.exports = class CatalogService extends cds.ApplicationService { init() {
   });
 
 
+    //implementation of action - Create, Update data in server
+  this.on('boost', async(req) => {
+    //    debugger;
+    try {
+      
+      //extract the primary key JSON - {NODE_KEY: 'key value'}
+      const PRIMARYKEY = req.params[0];
+      //start a transaction to db
+      const tx = cds.tx(req);
+      //CDS Query language to update your gross_amount by +20000
+      await tx.update(PurchaseOrderSet).with({
+        GROSS_AMOUNT  : { '+=' : 100 },
+        NOTE: 'Boosted!!'
+      }).where(PRIMARYKEY);
+      //read the record and send in out
+      return await tx.read(PurchaseOrderSet).where(PRIMARYKEY);
+
+
+    } catch (error) {
+      
+    }
+
+  });
+
+
 
   return super.init()
 }}

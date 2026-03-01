@@ -50,7 +50,8 @@
         "sap.m": {},
         "sap.ui.core": {},
         "sap.fe.templates": {},
-        "sap.suite.ui.microchart": {}
+        "sap.suite.ui.microchart": {},
+        "sap.f": {}
       }
     },
     "contentDensities": {
@@ -82,22 +83,37 @@
       "css": []
     },
     "routing": {
-      "config": {},
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      },
       "routes": [
         {
           "pattern": ":?query:",
           "name": "PurchaseOrderSetList",
-          "target": "PurchaseOrderSetList"
+          "target": [
+            "PurchaseOrderSetList"
+          ]
         },
         {
           "pattern": "PurchaseOrderSet({key}):?query:",
           "name": "PurchaseOrderSetObjectPage",
-          "target": "PurchaseOrderSetObjectPage"
+          "target": [
+            "PurchaseOrderSetList",
+            "PurchaseOrderSetObjectPage"
+          ]
         },
         {
           "pattern": "PurchaseOrderSet({key})/Items({key2}):?query:",
           "name": "PurchaseOrderItemsSetObjectPage",
-          "target": "PurchaseOrderItemsSetObjectPage"
+          "target": [
+            "PurchaseOrderSetList",
+            "PurchaseOrderSetObjectPage",
+            "PurchaseOrderItemsSetObjectPage"
+          ]
         }
       ],
       "targets": {
@@ -127,7 +143,9 @@
               },
               "initialLoad": "Enabled"
             }
-          }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
         },
         "PurchaseOrderSetObjectPage": {
           "type": "Component",
@@ -159,7 +177,9 @@
                 }
               }
             }
-          }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/PurchaseOrderSet({key})"
         },
         "PurchaseOrderItemsSetObjectPage": {
           "type": "Component",
@@ -170,9 +190,17 @@
               "editableHeaderContent": false,
               "contextPath": "/PurchaseOrderSet/Items"
             }
-          }
+          },
+          "controlAggregation": "endColumnPages",
+          "contextPattern": "/PurchaseOrderSet({key})/Items({key2})"
         }
       }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
     }
   },
   "sap.fiori": {

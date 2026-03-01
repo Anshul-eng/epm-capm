@@ -11,7 +11,7 @@ service CatalogService @(path: 'CatalogService'){
     entity AddressSet as projection on master.address;
     //@readonly --will remove delete button
      @Capabilities : { Deletable : false }
-    entity PurchaseOrderSet as projection on transaction.purchaseorder{
+    entity PurchaseOrderSet @(odata.draft.enabled: true) as projection on transaction.purchaseorder{
         *,
         //CDS Expression language
         case OVERALL_STATUS
@@ -31,7 +31,14 @@ service CatalogService @(path: 'CatalogService'){
     }
 
     actions{
-        // the system will pass the po primary key- NODE_KEY automatically to input
+        ///Side effect - a trigger to my action leads to a change of a field value in data
+        //this force framework to make a GET call after action is triggred to load data
+        //_anubhav is  variable that will contain the updated data coming from BE
+        @cds.odata.bindingparameter.name: '_anubhav'
+        @Common.SideEffects :{
+            TargetProperties: ['_anubhav/GROSS_AMOUNT','_anubhav/OVERALL_STATUS']
+        }
+        //the system will pass the PO primary key - NODE_KEY automatically to input  
         action boost() returns PurchaseOrderSet
     };
 

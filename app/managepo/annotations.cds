@@ -110,6 +110,7 @@ annotate service.PurchaseOrderSet with @(
             },
             {
                 $Type : 'UI.DataField',
+                Label: 'Tax Amount',
                 Value : TAX_AMOUNT,
             },
         ],
@@ -207,7 +208,8 @@ annotate service.PurchaseOrderSet with {
     @Common.Text: NOTE
     PO_ID;
     @Common.Text: PARTNER_GUID.COMPANY_NAME
-    @Common : { TextArrangement : #TextOnly, }
+    @ValueList.entity : service.BusinessPartnerSet
+    //@Common : { TextArrangement : #TextOnly, }
     PARTNER_GUID;  
 }
 
@@ -216,5 +218,30 @@ annotate service.PurchaseItemsSet with {
     @Common.Text: PRODUCT_GUID.DESCRIPTION
     //@UI.Hidden: true
     //@Common : { TextArrangement : #TextOnly } 
+    @ValueList.entity : service.ProductSet
     PRODUCT_GUID;
 };
+
+// Design Value help in CApm for partner Guid and product Guid
+@cds.odata.valuelist
+annotate service.BusinessPartnerSet with @( 
+   UI.Identification:[
+    {
+        $Type : 'UI.DataField',
+        Value : COMPANY_NAME,
+    },
+   ]
+);
+
+@cds.odata.valuelist
+annotate service.ProductSet with @(
+    UI.Identification: [
+        {
+            $Type : 'UI.DataField',
+            Value : DESCRIPTION,
+        },
+    ]
+) ;
+
+
+
