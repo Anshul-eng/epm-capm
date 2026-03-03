@@ -4,6 +4,7 @@
   "description": "A simple CAP project.",
   "dependencies": {
     "@cap-js-community/odata-v2-adapter": "^1.15.9",
+    "@cap-js/hana": "^2",
     "@sap/cds": "^9",
     "express": "^4"
   },
@@ -21,5 +22,23 @@
   ],
   "sapux": [
     "app/managepo"
-  ]
+  ],
+  "cds": {
+    "requires": {
+      "[development]": {
+        "kind" : "mocked",
+        "users" : {
+          "anshul" : {
+              "password" : "anshul"
+          },
+          "admin" : {
+            "password" : "admin"
+          }
+        }
+      },
+      "[production]" : {
+        "kind" : "xsuaa"
+      }
+    }
+  }
 }
