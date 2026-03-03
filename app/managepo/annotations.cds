@@ -203,7 +203,22 @@ annotate service.PurchaseItemsSet with @(
 
 //annotate a field to get its meaningful text
 annotate service.PurchaseOrderSet with {
-    @Common.Text: overallStatus
+    @(
+        Common.Text: overallStatus,
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'StatusCode',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : OVERALL_STATUS,
+                    ValueListProperty : 'code',
+                },
+            ],
+            Label : 'Status',
+        },
+        Common.ValueListWithFixedValues : true,
+    )
     OVERALL_STATUS;
     @Common.Text: NOTE
     PO_ID;
@@ -244,4 +259,8 @@ annotate service.ProductSet with @(
 ) ;
 
 
+
+annotate service.StatusCode with {
+    code @Common.Text : value
+};
 

@@ -49,7 +49,7 @@ context master {
         Currency: Currency;
         salaryAmount: common.AmountT;
         accountNumber: String(16);
-        bankId: String(8);
+        bankId: String(40);
         bankName: String(64);
 
     };
@@ -71,8 +71,13 @@ context master {
         DEPTH: Decimal(5,2);
         HEIGHT: Decimal(2);
         DIM_UNIT: String(2);
-        DESCRIPTION: String(32) @(title: '{i18n>DESCRIPTION}');
-    } 
+        DESCRIPTION: LargeString @(title: '{i18n>DESCRIPTION}');
+    };
+
+    entity StatusCode   {
+        key code : String(1);
+        value : String(10);
+    }
 
 }; // Added semicolon after context closing brace
 
