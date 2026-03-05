@@ -2,16 +2,30 @@
 
 using{ anshul.db.master , anshul.db.transaction} from '../db/datamodel';
 
-service CatalogService @(path: 'CatalogService'){
+service CatalogService @(path: 'CatalogService', requires: 'authenticated-user'){
     
     //Exposing entities for curd operation
-    entity EmployeeSet as projection on master.employee;
+    entity EmployeeSet @(
+        restrict : [
+                                    {grant : ['READ'], to : 'Viewer', 
+                                    //row level security
+                                    where : 'bankname =$user.spiderman'},
+                                    {grant : ['WRITE', 'DELETE'], to : 'Editor' }
+                                ],
+    ) as projection on master.employee;
     entity ProductSet as projection on master.product;
     entity BusinessPartnerSet as projection on master.businesspartner;
     entity AddressSet as projection on master.address;
     //@readonly --will remove delete button
+    @readonly
+    entity StatusCode as projection on master.StatusCode;
      @Capabilities : { Deletable : false }
-    entity PurchaseOrderSet @(odata.draft.enabled: true) as projection on transaction.purchaseorder{
+    entity PurchaseOrderSet @(
+                                restrict : [
+                                    {grant : ['READ'], to : 'Viewer'},
+                                    {grant : ['WRITE', 'DELETE'], to : 'Editor' }
+                                ],
+                                odata.draft.enabled: true) as projection on transaction.purchaseorder{
         *,
         //CDS Expression language
         case OVERALL_STATUS
@@ -26,7 +40,7 @@ service CatalogService @(path: 'CatalogService'){
             when 'A' then 3
             when 'X' then 1
             when 'D' then 3
-            else 'Unknown'
+            else 0
                 end as Spiderman: Integer
     }
 

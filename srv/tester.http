@@ -11,7 +11,7 @@ http://localhost:4004/odata/v4/CatalogService/$metadata
 
 ###Read my all Employee Data - Select * from Emp
 http://localhost:4004/odata/v4/CatalogService/EmployeeSet
-
+Authorization: Basic anubhav:Welcome1
 ### REad onlly the relevent fields from all employess - select id, nameFirst, nameLast, sex, email from Employeess
 http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$select=ID,nameFirst,nameLast,sex,email
 
