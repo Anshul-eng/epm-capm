@@ -1,29 +1,29 @@
 {
-  "welcomeFile": "/managepo/index.html",
+  "welcomeFile": "managepo/webapp/index.html",
   "authenticationMethod": "route",
   "sessionTimeout": 10,
   "pluginMetadataEndpoint": "/odata/v4/CatalogService/$metadata",
-  "routes": [
+  "routes": [				
     {
-      "source": "/managepo/webapp/(.*)",
-      "localDir": "managepo/webapp/",
-      "target": "$1",
-      "authenticationType": "xsuaa",
-      "csrfProtection": true
+        "source": "^/managepo/webapp/(.*)",
+        "localDir": "managepo/webapp/",
+        "target": "$1",
+        "authenticationType": "xsuaa",
+        "csrfProtection": true
     },
     {
-      "source": "^/user-api/currentUser$",
-      "target": "/currentUser",
-      "service": "sap-approuter-userapi"
+        "source": "^/user-api/currentUser$",
+        "target": "/currentUser",
+        "service": "sap-approuter-userapi"
     },
     {
       "source": "^/(.*)$",
-      "destination": "srv-api",
-      "authenticationType": "xsuaa"
-    }
+      "authenticationType": "xsuaa",
+      "destination": "srv-api"
+     }
   ],
   "logout": {
-    "logoutEndpoint": "/logout",
-    "logoutPage": "https://www.linkedin.com/in/anshul-gour-105a04234/"
+     "logoutEndpoint": "/logout",
+     "logoutPage": "https://www.anubhavtrainings.com"
   }
 }
