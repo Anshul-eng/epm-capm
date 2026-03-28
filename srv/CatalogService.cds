@@ -7,7 +7,7 @@ service CatalogService @(path: 'CatalogService', requires: 'authenticated-user')
     //Exposing entities for curd operation
     entity EmployeeSet @(
         restrict : [
-                                    {grant : ['READ'], to : 'Viewer', 
+                                    {grant : ['READ'], to : 'Display', 
                                     //row level security
                                     where : 'bankname =$user.spiderman'},
                                     {grant : ['WRITE', 'DELETE'], to : 'Editor' }
