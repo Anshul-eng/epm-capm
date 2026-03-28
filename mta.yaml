@@ -1,7 +1,7 @@
 _schema-version: 3.3.0
 ID: mycapapp
 version: 1.0.0
-description: "A simple CAP project."
+description: Anubhav Trainings Lifes first CAP app
 parameters:
   enable-parallel-deployments: true
 build-parameters:
@@ -11,9 +11,7 @@ build-parameters:
         - npm ci
         - npx cds build --production
 modules:
-
-  ### manually adding UI Module = fiori ui+approuter
-
+##this is our UI module added = fioriui+approuter
   - name: mycapapp-ui
     type: nodejs
     path: app
@@ -28,10 +26,11 @@ modules:
         group: destinations
         properties:
           name: srv-api
+          strictSSL: true
           forwardAuthToken: true
           url: '~{srv-url}'
- ### End of adding
 
+##end of code
   - name: mycapapp-srv
     type: nodejs
     path: gen/srv
@@ -41,13 +40,12 @@ modules:
     build-parameters:
       builder: npm-ci
     provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+      - name: srv-api
         properties:
-          srv-url: ${default-url}
+          srv-url: '${default-url}'
     requires:
       - name: mycapapp-auth
       - name: mycapapp-db
-
   - name: mycapapp-db-deployer
     type: hdb
     path: gen/db
@@ -55,7 +53,6 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: mycapapp-db
-
 resources:
   - name: mycapapp-auth
     type: org.cloudfoundry.managed-service
@@ -64,25 +61,25 @@ resources:
       service-plan: application
       path: ./xs-security.json
       config:
-        xsappname: mycapapp-${org}-${space}
+        xsappname: 'mycapapp-${org}-${space}'
         tenant-mode: dedicated
         oauth2-configuration:
           credential-types:
-            - "binding-secret"
-            - "x509"
+            - binding-secret
+            - x509
         role-collections:
           - name: 'Viewer (mycapapp ${org}-${space})'
-            description: 'generated'
+            description: generated
             role-template-references:
-              - '$XSAPPNAME.Viewer'
+              - $XSAPPNAME.Viewer
           - name: 'Editor (mycapapp ${org}-${space})'
-            description: 'generated'
+            description: generated
             role-template-references:
-              - '$XSAPPNAME.Editor'
+              - $XSAPPNAME.Editor
           - name: 'userattributes (mycapapp ${org}-${space})'
-            description: 'generated'
+            description: generated
             role-template-references:
-              - '$XSAPPNAME.userattributes'
+              - $XSAPPNAME.userattributes
   - name: mycapapp-db
     type: com.sap.xs.hdi-container
     parameters:
