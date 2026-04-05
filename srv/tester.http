@@ -22,7 +22,8 @@ http://localhost:4004/odata/v4/CatalogService/EmployeeSet/$count
 http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$top=2&$skip=2
 
 ### using ID
-http://localhost:4004/odata/v4/CatalogService/EmployeeSet(ID='02BD2137-0890-1EEA-A6C2-BB55C197C7FB')
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet(ID='02BD2137-0890-1EEA-A6C2-BB55C198A7FB')
+Authorization: Basic anubhav:Welcome1
 
 ### How to filter the data based on condition 
 ### select emp from My Bank of San Francisco
@@ -81,11 +82,12 @@ Content-Type: application/json
 }
 
 ###change Data - update - copy the id created in last call 
-PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C197C7FB
+PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C198A7FB
+Authorization: Basic anubhav:Welcome1
 Content-Type: application/json 
 
 {
-    "salaryAmount": "1999999"
+    "salaryAmount": "19000"
 }
 
 ### Delete the data from db
